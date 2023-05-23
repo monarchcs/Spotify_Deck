@@ -71,8 +71,9 @@ link = track['item']['album']['images'][0]['url']
 u = urllib.request.urlopen(link)
 raw_data = u.read()
 image = Image.open(io.BytesIO(raw_data))
+image = image.resize((400,400), Image.ANTIALIAS)
 image = ImageTk.PhotoImage(image)
-img = image.resize((400,400), Image.ANTIALIAS)
+img = image
 #img = ImageTk.PhotoImage(Image.open(path))
 #photo = PhotoImage(file="C:/Users/Carter/ab67616d0000b273cdb645498cd3d8a2db4d05e1.jpg")
 label = Label(window, image=img)
