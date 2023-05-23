@@ -5,12 +5,27 @@ import webbrowser
 import spotipy
 import spotipy.util as util
 from json.decoder import JSONDecodeError
+import tkinter as tk
+from tkinter import Toplevel, Tk, Label, PhotoImage
+from PIL import ImageTk, Image
+import io
+import urllib.request
 
 #for convenience
 #set SPOTIPY_CLIENT_ID='f677b01ff18f46f9a9e19044b00af5ad'
 #set SPOTIPY_CLIENT_SECRET='057c14386cd541e984af51f55c6b9ab3'
 #set  SPOTIPY_REDIRECT_URI='http://google.com/callback/'
 #py api_calls.py 56n6jy66fjt1c199jq2fl5x44
+
+#setting up art output
+win = Tk()
+
+win.attributes('-alpha', 0.0)
+win.iconify()
+
+window = Toplevel(win)
+window.geometry("640x640+100+100")
+window.overrideredirect(1)
 
 
 # Get the username from terminal
@@ -37,15 +52,33 @@ user = spotifyObject.current_user()
 
 #get current device
 devices = spotifyObject.devices()
-print(json.dumps(devices, sort_keys=True, indent=4))
+#print(json.dumps(devices, sort_keys=True, indent=4))
 deviceID = devices['devices'][0]['id']
 
 #current playing track
 track = spotifyObject.current_user_playing_track()
+#artist = spotifyObject.current_user_playing_track()
 print(json.dumps(track, sort_keys=True, indent=4))
 print()
-#artist = track['item']['artists'][0]['name']
-#track = track['items']['name']
+artist = track['item']['artists'][0]['name']
+track = track['item']['name']
+print("Currently playing " + artist + " - " + track)
+
+#output currently playing album art
+track = spotifyObject.current_user_playing_track()
+link = track['item']['album']['images'][0]['url']
+#art= track['item']['name']
+u = urllib.request.urlopen(link)
+raw_data = u.read()
+image = Image.open(io.BytesIO(raw_data))
+image = ImageTk.PhotoImage(image)
+img = image
+#img = ImageTk.PhotoImage(Image.open(path))
+#photo = PhotoImage(file="C:/Users/Carter/ab67616d0000b273cdb645498cd3d8a2db4d05e1.jpg")
+label = Label(window, image=img)
+label.pack()
+win.mainloop()
+            
 
 #if artist != "":
 #    print("Currently playing " + artist + " - " + track)
@@ -112,13 +145,31 @@ while True:
             songSelection = input("Enter a song number to see the album art(x to exit): ")
             if songSelection == "x":
                 break
-            webbrowser.open(trackArt[int(songSelection)])
+            #webbrowser.open(trackArt[int(songSelection)])
             trackSelectionList = []
             trackSelectionList.append(trackURIs[int(songSelection)])
             spotifyObject.start_playback(deviceID, None, trackSelectionList)
             webbrowser.open(trackArt[int(songSelection)])
+            #print(trackArt[int(songSelection)])
+            link = trackArt[int(songSelection)]
+            u = urllib.request.urlopen(link)
+
+            raw_data = u.read()
+            image = Image.open(io.BytesIO(raw_data))
+            image = ImageTk.PhotoImage(image)
+
+
+            img = image
+
+            #img = ImageTk.PhotoImage(Image.open(path))
+            #photo = PhotoImage(file="C:/Users/Carter/ab67616d0000b273cdb645498cd3d8a2db4d05e1.jpg")
+
+            label = Label(window, image=img)
+            label.pack()
+
+            win.mainloop()
             
-                
+            
     if choice == "1":
         break
 
