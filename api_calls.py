@@ -72,7 +72,7 @@ u = urllib.request.urlopen(link)
 raw_data = u.read()
 image = Image.open(io.BytesIO(raw_data))
 image = ImageTk.PhotoImage(image)
-img = image
+img = image.resize((400,400), Image.ANTIALIAS)
 #img = ImageTk.PhotoImage(Image.open(path))
 #photo = PhotoImage(file="C:/Users/Carter/ab67616d0000b273cdb645498cd3d8a2db4d05e1.jpg")
 label = Label(window, image=img)
