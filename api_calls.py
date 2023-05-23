@@ -24,7 +24,7 @@ win.attributes('-alpha', 0.0)
 win.iconify()
 
 window = Toplevel(win)
-window.geometry("640x640+100+100")
+window.geometry("400x400")
 window.overrideredirect(1)
 
 
