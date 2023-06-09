@@ -32,7 +32,10 @@ class Spectrum_Visualizer:
         self.slow_bar_thickness = max(0.00002*self.HEIGHT, 1.25 / self.ear.n_frequency_bins)
         #self.tag_every_n_bins = max(1,round(5 * (self.ear.n_frequency_bins / 51))) # Occasionally display Hz tags on the x-axis
 
-        self.fast_bar_colors = [list((255*np.array(self.cm(i))[:3]).astype(int)) for i in np.linspace(0,255,self.ear.n_frequency_bins).astype(int)]
+        #self.fast_bar_colors = [list((255*np.array(self.cm(i))[:3]).astype(int)) for i in np.linspace(0,255,self.ear.n_frequency_bins).astype(int)]
+        self.fast_bar_colors = [[200, 27, 10] for _ in range(self.ear.n_frequency_bins)]
+
+
         self.slow_bar_colors = [list(np.clip((255*3.5*np.array(self.cm(i))[:3]).astype(int) , 0, 255)) for i in np.linspace(0,255,self.ear.n_frequency_bins).astype(int)]
         self.fast_bar_colors = self.fast_bar_colors[::-1]
         self.slow_bar_colors = self.slow_bar_colors[::-1]
@@ -61,7 +64,9 @@ class Spectrum_Visualizer:
             self.shrink_f           = 0.994
 
         else:
-            self.bg_color           = 60
+            self.bg_color_1           = 0
+            self.bg_color_2         = 0
+            self.bg_color_3           = 0
             self.decay_speed        = 0.06
             self.inter_bar_distance = int(0.2*self.WIDTH / self.ear.n_frequency_bins)
             self.avg_energy_height  = 0.225
@@ -82,7 +87,7 @@ class Spectrum_Visualizer:
         print("Starting spectrum visualizer...")
         pygame.init()
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT), pygame.NOFRAME)
-        self.screen.fill((self.bg_color,self.bg_color,self.bg_color))
+        self.screen.fill((self.bg_color_1,self.bg_color_2,self.bg_color_3))
 
         if self.plot_audio_history:
             self.screen.set_alpha(255)
@@ -151,7 +156,7 @@ class Spectrum_Visualizer:
             horizontal_pixel_difference = self.WIDTH - new_w
             prev_screen = pygame.transform.scale(self.prev_screen, (new_w, new_h))
 
-        self.screen.fill((self.bg_color,self.bg_color,self.bg_color))
+        self.screen.fill((self.bg_color_1,self.bg_color_2,self.bg_color_3))
 
         if self.plot_audio_history:
             new_pos = int(self.move_fraction*self.WIDTH - (0.0133*self.WIDTH)), int(self.move_fraction*self.HEIGHT)
@@ -166,7 +171,7 @@ class Spectrum_Visualizer:
             self.fps = self.fps_interval / (time.time()-self.start_time)
             self.start_time = time.time()
 
-        self.text = self.fps_font.render('Fps: %.1f' %(self.fps), True, (255, 255, 255) , (self.bg_color, self.bg_color, self.bg_color))
+        self.text = self.fps_font.render('Fps: %.1f' %(self.fps), True, (255, 255, 255) , (self.bg_color_1, self.bg_color_2, self.bg_color_3))
         self.textRect = self.text.get_rect()
         self.textRect.x, self.textRect.y = round(0.015*self.WIDTH), round(0.03*self.HEIGHT)
         pygame.display.set_caption('Spectrum Analyzer -- (FFT-Peak: %05d Hz)' %self.ear.strongest_frequency)
