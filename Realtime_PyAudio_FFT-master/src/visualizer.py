@@ -78,7 +78,7 @@ class Spectrum_Visualizer:
     def start(self):
         print("Starting spectrum visualizer...")
         pygame.init()
-        self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+        self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT), pygame.NOFRAME)
         self.screen.fill((self.bg_color,self.bg_color,self.bg_color))
 
         if self.plot_audio_history:
