@@ -6,12 +6,12 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--device', type=int, default=None, dest='device',
                         help='pyaudio (portaudio) device index')
-    parser.add_argument('--height', type=int, default=250, dest='height',
+    parser.add_argument('--height', type=int, default=400, dest='height',
                         help='height, in pixels, of the visualizer window')
     parser.add_argument('--n_frequency_bins', type=int, default=400, dest='frequency_bins',
                         help='The FFT features are grouped in bins')
     parser.add_argument('--verbose', action='store_true')
-    parser.add_argument('--window_ratio', default='24/9', dest='window_ratio',
+    parser.add_argument('--window_ratio', default='22/10', dest='window_ratio',
                         help='float ratio of the visualizer window. e.g. 24/9')
     parser.add_argument('--sleep_between_frames', dest='sleep_between_frames', action='store_true',
                         help='when true process sleeps between frames to reduce CPU usage (recommended for low update rates)')
