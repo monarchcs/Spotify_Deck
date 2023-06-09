@@ -20,7 +20,7 @@ class Stream_Reader:
     def __init__(self,
         device = None,
         rate = None,
-        updates_per_second  = 1000,
+        updates_per_second  = 100,
         FFT_window_size = None,
         verbose = False):
 
