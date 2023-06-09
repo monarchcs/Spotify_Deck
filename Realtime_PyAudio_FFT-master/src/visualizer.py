@@ -18,7 +18,7 @@ class Spectrum_Visualizer:
 
         self.HEIGHT = round(self.HEIGHT)
         self.WIDTH  = round(window_ratio*self.HEIGHT)
-        self.y_ext = [round(0.05*self.HEIGHT), self.HEIGHT]
+        self.y_ext = [round(0*self.HEIGHT), self.HEIGHT]
         self.cm = cm.plasma
         #self.cm = cm.inferno
 
@@ -199,7 +199,7 @@ class Spectrum_Visualizer:
             self.fast_bars[i][3] = int(feature_value)
 
             if self.plot_audio_history:
-                self.fast_bars[i][3] = int(feature_value + 0.02*self.HEIGHT)
+                self.fast_bars[i][3] = int(feature_value + self.HEIGHT)
 
             if self.add_slow_bars:
                 self.decay = min(0.99, 1 - max(0,self.decay_speed * 60 / self.ear.fft_fps))
