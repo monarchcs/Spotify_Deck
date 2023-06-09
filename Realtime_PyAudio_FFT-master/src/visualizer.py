@@ -4,11 +4,14 @@ import pygame
 from collections import deque
 from src.utils import Button
 from matplotlib import cm
+import os
 
 class Spectrum_Visualizer:
     """
     The Spectrum_Visualizer visualizes spectral FFT data using a simple PyGame GUI
     """
+    os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (400,0)
+
     def __init__(self, ear):
         self.plot_audio_history = False
         self.ear = ear
