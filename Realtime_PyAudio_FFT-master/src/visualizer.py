@@ -224,5 +224,5 @@ class Spectrum_Visualizer:
         self.slow_features = new_slow_features
 
         #Draw everything:
-        self.screen.blit(pygame.transform.rotate(self.screen, 180), (0, 0))
+        self.screen.blit(pygame.transform.rotate(self.screen, 180), (400, 0))
 
