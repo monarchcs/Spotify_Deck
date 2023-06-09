@@ -10,13 +10,18 @@ from tkinter import Toplevel, Tk, Label, PhotoImage
 from PIL import ImageTk, Image
 import io
 import urllib.request
-
+import argparse
+from src.stream_analyzer import Stream_Analyzer
+import time
+import subprocess
 #for convenience
 #set SPOTIPY_CLIENT_ID='f677b01ff18f46f9a9e19044b00af5ad'
 #set SPOTIPY_CLIENT_SECRET='057c14386cd541e984af51f55c6b9ab3'
-#set SPOTIPY_REDIRECT_URI='http://google.com/callback/'
+#set  SPOTIPY_REDIRECT_URI='http://google.com/callback/'
 #py api_calls.py 56n6jy66fjt1c199jq2fl5x44
 
+#os.system('run_FFT_analyzer.py')
+subprocess.Popen(['python', 'run_FFT_analyzer.py'])
 #setting up art output
 win = Tk()
 
@@ -55,15 +60,49 @@ devices = spotifyObject.devices()
 #print(json.dumps(devices, sort_keys=True, indent=4))
 deviceID = devices['devices'][0]['id']
 
+#check current_playback
+playback = spotifyObject.current_playback()
+#print(json.dumps(playback, sort_keys=True, indent=4))
+
+total_time = playback['item']['duration_ms']
+played_time = playback['progress_ms']
+total_time = int(total_time)
+played_time = int(played_time)
+
+total_time_seconds = (total_time/1000)%60
+total_time_minutes = (total_time/(1000*60))%60
+total_time_seconds = int(total_time_seconds)
+total_time_minutes = int(total_time_minutes)
+if(total_time_seconds <= 9):
+    t_s = '0' + str(total_time_seconds)
+else:
+    t_s = str(total_time_seconds)
+    
+played_time_seconds = (played_time/1000)%60
+played_time_minutes = (played_time/(1000*60))%60
+played_time_seconds = int(played_time_seconds)
+played_time_minutes = int(played_time_minutes)
+if(played_time_seconds <= 9):
+    p_s = '0' + str(played_time_seconds)
+    
+else:
+    p_s = str(played_time_seconds)
+    
+
+
+print("Total track time = " + str(total_time_minutes) + ":" + t_s)
+print()
+print("Played track time = " + str(played_time_minutes) + ":" + p_s)
+
 #current playing track
 track = spotifyObject.current_user_playing_track()
 #artist = spotifyObject.current_user_playing_track()
-print(json.dumps(track, sort_keys=True, indent=4))
+#print(json.dumps(track, sort_keys=True, indent=4))
 print()
 artist = track['item']['artists'][0]['name']
 track = track['item']['name']
 print("Currently playing " + artist + " - " + track)
-
+print()
 #output currently playing album art
 track = spotifyObject.current_user_playing_track()
 link = track['item']['album']['images'][0]['url']
@@ -88,6 +127,11 @@ win.mainloop()
 displayName = user['display_name']
 followers = user['followers']['total']
 
+#exec(open("run_FFT_analyzer.py").read())  # replace 'script2.py' with your file
+
+
+
+"""
 while True:
     print()
     print(">>> Welcome to Spotipy " + displayName + "!")
@@ -175,3 +219,6 @@ while True:
         break
 
 #print(json.dumps(VARIABLE, sort_keys=True, indent=4))
+"""
+
+
