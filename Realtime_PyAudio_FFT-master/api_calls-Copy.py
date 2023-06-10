@@ -96,30 +96,77 @@ print("Played track time = " + str(played_time_minutes) + ":" + p_s)
 
 #current playing track
 track = spotifyObject.current_user_playing_track()
+current_track_id = track['item']['id']
 #artist = spotifyObject.current_user_playing_track()
 #print(json.dumps(track, sort_keys=True, indent=4))
-print()
 artist = track['item']['artists'][0]['name']
-track = track['item']['name']
-print("Currently playing " + artist + " - " + track)
+track_name = track['item']['name']
 print()
+print("Currently playing " + artist + " - " + track_name)
+print()
+
 #output currently playing album art
-track = spotifyObject.current_user_playing_track()
+#track = spotifyObject.current_user_playing_track()
 link = track['item']['album']['images'][0]['url']
-#art= track['item']['name']
 u = urllib.request.urlopen(link)
 raw_data = u.read()
 image = Image.open(io.BytesIO(raw_data))
 image = image.resize((400,400), Image.ANTIALIAS)
 image = ImageTk.PhotoImage(image)
 img = image
-#img = ImageTk.PhotoImage(Image.open(path))
-#photo = PhotoImage(file="C:/Users/Carter/ab67616d0000b273cdb645498cd3d8a2db4d05e1.jpg")
 label = Label(window, image=img)
 label.pack()
-win.mainloop()
-            
+#win.mainloop()
+window.update()
 
+while True:
+    new_track = spotifyObject.current_user_playing_track()
+    #check current_playback
+    playback = spotifyObject.current_playback()
+    #print(json.dumps(playback, sort_keys=True, indent=4))
+
+    total_time = playback['item']['duration_ms']
+    played_time = playback['progress_ms']
+    total_time = int(total_time)
+    played_time = int(played_time)
+
+    total_time_seconds = (total_time/1000)%60
+    total_time_minutes = (total_time/(1000*60))%60
+    total_time_seconds = int(total_time_seconds)
+    total_time_minutes = int(total_time_minutes)
+    if(total_time_seconds <= 9):
+        t_s = '0' + str(total_time_seconds)
+    else:
+        t_s = str(total_time_seconds)
+        
+    played_time_seconds = (played_time/1000)%60
+    played_time_minutes = (played_time/(1000*60))%60
+    played_time_seconds = int(played_time_seconds)
+    played_time_minutes = int(played_time_minutes)
+    if(played_time_seconds <= 9):
+        p_s = '0' + str(played_time_seconds)
+        
+    else:
+        p_s = str(played_time_seconds)
+        
+
+    print("Total track time = " + str(total_time_minutes) + ":" + t_s)
+    print()
+    print("Played track time = " + str(played_time_minutes) + ":" + p_s)
+    
+    if  new_track['item']['id'] != current_track_id:
+        link = new_track['item']['album']['images'][0]['url']
+        u = urllib.request.urlopen(link)
+        raw_data = u.read()
+        image = Image.open(io.BytesIO(raw_data))
+        image = image.resize((400,400), Image.ANTIALIAS)
+        image = ImageTk.PhotoImage(image)
+        img = image
+        label.configure(image=img)
+        label.image = img 
+        window.update()
+        current_track_id = new_track['item']['id']
+    time.sleep(0.25)
 #if artist != "":
 #    print("Currently playing " + artist + " - " + track)
 
