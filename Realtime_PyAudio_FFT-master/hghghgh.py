@@ -14,6 +14,7 @@ import argparse
 from src.stream_analyzer import Stream_Analyzer
 import time
 import subprocess
+import RPi.GPIO as GPIO
 #for convenience
 #set SPOTIPY_CLIENT_ID='f677b01ff18f46f9a9e19044b00af5ad'
 #set SPOTIPY_CLIENT_SECRET='057c14386cd541e984af51f55c6b9ab3'
@@ -22,6 +23,13 @@ import subprocess
 
 #os.system('run_FFT_analyzer.py')
 subprocess.Popen(['python', 'run_FFT_analyzer.py'])
+
+#setting up GPIO PINS
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(13,GPIO.IN)
+GPIO.setup(19,GPIO.IN)
+GPIO.setup(26,GPIO.IN)
+
 #setting up art output
 win = Tk()
 
@@ -120,6 +128,16 @@ label.pack()
 window.update()
 
 while True:
+    #Checking Switches
+    #if GPIO.input(13):
+    #    self.spotifyObject.shuffle(1)
+    #    print("reading")
+    #else:
+    #    self.spotifyObject.shuffle(0)
+    #    print("crying")
+
+
+    
     new_track = spotifyObject.current_user_playing_track()
     #check current_playback
     playback = spotifyObject.current_playback()
@@ -266,3 +284,6 @@ while True:
         break
 
 #print(json.dumps(VARIABLE, sort_keys=True, indent=4))
+"""
+
+
