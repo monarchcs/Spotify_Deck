@@ -141,7 +141,7 @@ while True:
     elif GPIO.input(26):
         spotifyObject.repeat(state = 'context')
     else:
-        spotifyObject.repeat(state = False)
+        spotifyObject.repeat(state = 'off')
         
     new_track = spotifyObject.current_user_playing_track()
     #check current_playback
