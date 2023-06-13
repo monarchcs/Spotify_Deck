@@ -130,10 +130,10 @@ window.update()
 while True:
     #Checking Switches
     if GPIO.input(13):
-        spotifyObject.shuffle(true)
+        spotifyObject.shuffle(state=True)
         print("reading")
     else:
-        spotifyObject.shuffle(false)
+        spotifyObject.shuffle(state=False)
         print("crying")
 
     
