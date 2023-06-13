@@ -23,7 +23,7 @@ import RPi.GPIO as GPIO
 def wait_for_press_next(pin):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
+    print("Thread Check")
     while True:
         GPIO.wait_for_edge(pin, GPIO.FALLING)
         current = SpotifyObject.next_track()
@@ -120,6 +120,14 @@ def main():
 
     
     while True:
+        #Checking Switches
+        if GPIO.input(13):
+            self.spotifyObject.shuffle(1)
+        else:
+            self.spotifyObject.shuffle(0)
+
+
+        
         print()
         print(">>> Welcome to Spotipy " + displayName + "!")
         print(">>> You have " + str(followers) + " followers.")
