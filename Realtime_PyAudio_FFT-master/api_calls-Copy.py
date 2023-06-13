@@ -120,6 +120,7 @@ label.pack()
 window.update()
 
 while True:
+    print("test:")
     new_track = spotifyObject.current_user_playing_track()
     #check current_playback
     playback = spotifyObject.current_playback()
