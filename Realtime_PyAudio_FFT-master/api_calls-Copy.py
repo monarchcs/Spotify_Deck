@@ -128,12 +128,12 @@ window.update()
 
 while True:
     #Checking Switches
-    if GPIO.input(13):
-        self.spotifyObject.shuffle(1)
-        print("reading")
-    else:
-        self.spotifyObject.shuffle(0)
-        print("crying")
+    #if GPIO.input(13):
+    #    self.spotifyObject.shuffle(1)
+    #    print("reading")
+    #else:
+    #    self.spotifyObject.shuffle(0)
+    #    print("crying")
 
 
     
