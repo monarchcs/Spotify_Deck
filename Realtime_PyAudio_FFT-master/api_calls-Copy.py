@@ -14,7 +14,7 @@ import argparse
 from src.stream_analyzer import Stream_Analyzer
 import time
 import subprocess
-import Rpi.GPIO as GPIO
+import RPi.GPIO as GPIO
 #for convenience
 #set SPOTIPY_CLIENT_ID='f677b01ff18f46f9a9e19044b00af5ad'
 #set SPOTIPY_CLIENT_SECRET='057c14386cd541e984af51f55c6b9ab3'
