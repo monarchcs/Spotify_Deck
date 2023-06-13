@@ -149,7 +149,6 @@ while True:
     else:
         p_s = str(played_time_seconds)
         
-
     print("Total track time = " + str(total_time_minutes) + ":" + t_s)
     print()
     print("Played track time = " + str(played_time_minutes) + ":" + p_s)
@@ -167,102 +166,8 @@ while True:
         window.update()
         current_track_id = new_track['item']['id']
     time.sleep(0.25)
-#if artist != "":
-#    print("Currently playing " + artist + " - " + track)
-
 
 displayName = user['display_name']
 followers = user['followers']['total']
 
-#exec(open("run_FFT_analyzer.py").read())  # replace 'script2.py' with your file
 
-
-
-"""
-while True:
-    print()
-    print(">>> Welcome to Spotipy " + displayName + "!")
-    print(">>> You have " + str(followers) + " followers.")
-    print()
-    print("0 - search for an artist")
-    print("1 - exit")
-    print()
-    choice = input("your choice: ")
-
-    if choice == "0":
-        print()
-        searchQuery = input("Ok, whats their name: ")
-        print()
-        
-        #search results
-        searchResults = spotifyObject.search(searchQuery,1,0,"artist")
-        #print(json.dumps(searchResults, sort_keys=True, indent=4))
-
-        #artist details
-        artist = searchResults['artists']['items'][0]
-        print(artist['name'])
-        print(str(artist['followers']['total']) + " followers")
-        print(artist['genres'][0])
-        print()
-        webbrowser.open(artist['images'][0]['url'])
-        artistID = artist['id']
-        #album and track details
-        trackURIs = []
-        trackArt = []
-        z = 0
-
-        #extract album data
-        albumResults = spotifyObject.artist_albums(artistID)
-        albumResults = albumResults['items']
-
-        for item in albumResults:
-            print("Album " + item['name'])
-            albumID = item['id']
-            albumArt = item['images'][0]['url']
-
-            #extract track data
-            trackResults = spotifyObject.album_tracks(albumID)
-            trackResults = trackResults['items']
-
-            for item in trackResults:
-                print(str(z) + ": " + item['name'])
-                trackURIs.append(item['uri'])
-                trackArt.append(albumArt)
-                z+=1
-        print()
-
-        # see album art
-
-        while True:
-            songSelection = input("Enter a song number to see the album art(x to exit): ")
-            if songSelection == "x":
-                break
-            #webbrowser.open(trackArt[int(songSelection)])
-            trackSelectionList = []
-            trackSelectionList.append(trackURIs[int(songSelection)])
-            spotifyObject.start_playback(deviceID, None, trackSelectionList)
-            webbrowser.open(trackArt[int(songSelection)])
-            #print(trackArt[int(songSelection)])
-            link = trackArt[int(songSelection)]
-            u = urllib.request.urlopen(link)
-
-            raw_data = u.read()
-            image = Image.open(io.BytesIO(raw_data))
-            image = ImageTk.PhotoImage(image)
-
-
-            img = image
-
-            #img = ImageTk.PhotoImage(Image.open(path))
-            #photo = PhotoImage(file="C:/Users/Carter/ab67616d0000b273cdb645498cd3d8a2db4d05e1.jpg")
-
-            label = Label(window, image=img)
-            label.pack()
-
-            win.mainloop()
-            
-            
-    if choice == "1":
-        break
-
-#print(json.dumps(VARIABLE, sort_keys=True, indent=4))
