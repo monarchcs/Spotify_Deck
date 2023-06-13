@@ -123,9 +123,10 @@ def main():
         #Checking Switches
         if GPIO.input(13):
             self.spotifyObject.shuffle(1)
+            print("reading")
         else:
             self.spotifyObject.shuffle(0)
-
+             print("crying")
 
         
         print()
