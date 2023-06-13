@@ -136,7 +136,13 @@ while True:
         spotifyObject.shuffle(state=False)
         print("crying")
 
-    
+    if GPIO.input(19) and GPIO.input(26):
+        spotifyObject.repeat(state = 'track')
+    elif GPIO.input(26):
+        spotifyObject.repeat(state = 'context')
+    else:
+        spotifyObject.repeat(state = False)
+        
     new_track = spotifyObject.current_user_playing_track()
     #check current_playback
     playback = spotifyObject.current_playback()
