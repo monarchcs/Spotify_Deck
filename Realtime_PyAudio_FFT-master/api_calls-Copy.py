@@ -29,6 +29,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(13,GPIO.IN)
 GPIO.setup(19,GPIO.IN)
 GPIO.setup(26,GPIO.IN)
+GPIO.setup(4,GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 #setting up art output
 win = Tk()
@@ -63,6 +64,10 @@ spotifyObject = spotipy.Spotify(auth=token)
 user = spotifyObject.current_user()
 #print(json.dumps(user, sort_keys=True, indent=4))
 
+#Buttons and shiii
+def next(channel):
+    spotifyObject.next_track()
+GPIO.add_event_detect(4, GPIO.FALLING, callback=next, bouncetime=200)
 #get current device
 devices = spotifyObject.devices()
 #print(json.dumps(devices, sort_keys=True, indent=4))
