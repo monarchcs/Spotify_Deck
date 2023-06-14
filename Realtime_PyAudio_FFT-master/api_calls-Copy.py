@@ -136,10 +136,10 @@ while True:
     #Checking Switches
     if GPIO.input(13):
         spotifyObject.shuffle(state=True)
-        print("reading")
+        
     else:
         spotifyObject.shuffle(state=False)
-        print("crying")
+       
 
     if GPIO.input(19) and GPIO.input(26):
         spotifyObject.repeat(state = 'track')
