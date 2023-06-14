@@ -71,11 +71,19 @@ def next(channel):
 
 
 def back (channel):
-    spotifyObject.previous()
+    spotifyObject.previous_track()
 
 
 def pause_play (channel):
-    spotifyObject.pause_playback()
+    check_playback = spotifyObject.current_playback()
+
+    # Check if the user is currently playing music
+    if check_playback['is_playing']:
+        # If music is playing, pause it
+        spotifyObject.pause_playback()
+    else:
+        # If music is not playing, start it
+        spotifyObject.start_playback()
     
 GPIO.add_event_detect(4, GPIO.FALLING, callback=next, bouncetime=600)
 GPIO.add_event_detect(27, GPIO.FALLING, callback=back, bouncetime=600)
