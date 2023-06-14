@@ -30,7 +30,8 @@ GPIO.setup(13,GPIO.IN)
 GPIO.setup(19,GPIO.IN)
 GPIO.setup(26,GPIO.IN)
 GPIO.setup(4,GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
+GPIO.setup(17,GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(27,GPIO.IN, pull_up_down=GPIO.PUD_UP)
 #setting up art output
 win = Tk()
 
