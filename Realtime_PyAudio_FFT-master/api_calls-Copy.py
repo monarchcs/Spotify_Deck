@@ -67,7 +67,7 @@ user = spotifyObject.current_user()
 #Buttons and shiii
 def next(channel):
     spotifyObject.next_track()
-GPIO.add_event_detect(4, GPIO.FALLING, callback=next, bouncetime=750)
+GPIO.add_event_detect(4, GPIO.FALLING, callback=next, bouncetime=500)
 #get current device
 devices = spotifyObject.devices()
 #print(json.dumps(devices, sort_keys=True, indent=4))
