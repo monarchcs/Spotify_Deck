@@ -33,7 +33,7 @@ class Spectrum_Visualizer:
         #self.tag_every_n_bins = max(1,round(5 * (self.ear.n_frequency_bins / 51))) # Occasionally display Hz tags on the x-axis
 
         #self.fast_bar_colors = [list((255*np.array(self.cm(i))[:3]).astype(int)) for i in np.linspace(0,255,self.ear.n_frequency_bins).astype(int)]
-        self.fast_bar_colors = [[200, 27, 10] for _ in range(self.ear.n_frequency_bins)]
+        self.fast_bar_colors = [[255, 255, 255] for _ in range(self.ear.n_frequency_bins)]
 
 
         self.slow_bar_colors = [list(np.clip((255*3.5*np.array(self.cm(i))[:3]).astype(int) , 0, 255)) for i in np.linspace(0,255,self.ear.n_frequency_bins).astype(int)]
