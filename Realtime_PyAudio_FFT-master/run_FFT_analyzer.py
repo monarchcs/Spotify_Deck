@@ -35,8 +35,8 @@ def run_FFT_analyzer():
                     device = args.device,        # Pyaudio (portaudio) device index, defaults to first mic input
                     rate   = None,               # Audio samplerate, None uses the default source settings
                     FFT_window_size_ms  = 60,    # Window size used for the FFT transform
-                    updates_per_second  = 100,  # How often to read the audio stream for new data
-                    smoothing_length_ms = 50,    # Apply some temporal smoothing to reduce noisy features
+                    updates_per_second  = 30,  # How often to read the audio stream for new data
+                    smoothing_length_ms = 10,    # Apply some temporal smoothing to reduce noisy features
                     #n_frequency_bins = args.frequency_bins, # The FFT features are grouped in bins
                     n_frequency_bins = 51,
                     visualize = 1,               # Visualize the FFT features with PyGame
