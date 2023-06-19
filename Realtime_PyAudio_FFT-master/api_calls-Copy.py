@@ -17,7 +17,8 @@ import subprocess
 import RPi.GPIO as GPIO
 from board import SCL, SDA
 import busio
-import adafruit_ads1x15.analog_in import AnalogIn
+import adafruit_ads1x15.ads1115 as ADS
+from adafruit_ads1x15.analog_in import AnalogIn
 #for convenience
 #set SPOTIPY_CLIENT_ID='f677b01ff18f46f9a9e19044b00af5ad'
 #set SPOTIPY_CLIENT_SECRET='057c14386cd541e984af51f55c6b9ab3'
