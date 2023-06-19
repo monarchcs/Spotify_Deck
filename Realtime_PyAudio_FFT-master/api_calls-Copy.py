@@ -15,6 +15,10 @@ from src.stream_analyzer import Stream_Analyzer
 import time
 import subprocess
 import RPi.GPIO as GPIO
+from board import SCL, SDA
+import busio
+import adafruit_ads1x15.analog_in
+import AnalogIn
 #for convenience
 #set SPOTIPY_CLIENT_ID='f677b01ff18f46f9a9e19044b00af5ad'
 #set SPOTIPY_CLIENT_SECRET='057c14386cd541e984af51f55c6b9ab3'
@@ -24,6 +28,11 @@ import RPi.GPIO as GPIO
 #os.system('run_FFT_analyzer.py')
 subprocess.Popen(['python', 'run_FFT_analyzer.py'])
 
+#setting up vol knob
+i2c =busio.I2c(SCL, SDA)
+ads = ADS.ADS1115(i2c)
+chan = AnalogIn(ads, ADS.P0)
+    
 #setting up GPIO PINS
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(13,GPIO.IN)
@@ -66,6 +75,9 @@ user = spotifyObject.current_user()
 #print(json.dumps(user, sort_keys=True, indent=4))
 
 #Buttons and shiii
+def pot_to_vol(pot_val):
+    return int((pot_val / 32767.0) * 100)
+
 def next(channel):
     spotifyObject.next_track()
 
@@ -167,7 +179,10 @@ while True:
         spotifyObject.repeat(state = 'context')
     else:
         spotifyObject.repeat(state = 'off')
-        
+    pot_val = chan.value
+    volume = pot_to_vol(pot_val)
+    spotifyObject.volume(volume)
+    
     new_track = spotifyObject.current_user_playing_track()
     #check current_playback
     playback = spotifyObject.current_playback()
@@ -213,7 +228,7 @@ while True:
         label.image = img 
         window.update()
         current_track_id = new_track['item']['id']
-    time.sleep(0.25)
+    time.sleep(0.1)
 
 displayName = user['display_name']
 followers = user['followers']['total']
