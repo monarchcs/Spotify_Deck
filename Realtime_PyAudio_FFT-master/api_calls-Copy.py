@@ -29,7 +29,7 @@ from adafruit_ads1x15.analog_in import AnalogIn
 subprocess.Popen(['python', 'run_FFT_analyzer.py'])
 
 #setting up vol knob
-i2c =busio.I2c(SCL, SDA)
+i2c =busio.I2C(SCL, SDA)
 ads = ADS.ADS1115(i2c)
 chan = AnalogIn(ads, ADS.P0)
     
