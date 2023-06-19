@@ -228,7 +228,7 @@ while True:
         label.image = img 
         window.update()
         current_track_id = new_track['item']['id']
-    time.sleep(0.1)
+    time.sleep(0.25)
 
 displayName = user['display_name']
 followers = user['followers']['total']
