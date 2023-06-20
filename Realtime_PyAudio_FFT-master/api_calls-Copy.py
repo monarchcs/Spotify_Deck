@@ -38,9 +38,15 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(4,GPIO.IN)
 GPIO.setup(17,GPIO.IN)
 GPIO.setup(27,GPIO.IN)
-GPIO.setup(5,GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(6,GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(13,GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(22,GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(19,GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(26,GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(5,GPIO.OUT)
+GPIO.setup(6,GPIO.OUT)
+GPIO.setup(13,GPIO.OUT)
+
+GPIO.output(5, GPIO.HIGH)
+
 #setting up art output
 win = Tk()
 
@@ -97,9 +103,9 @@ def pause_play (channel):
         # If music is not playing, start it
         spotifyObject.start_playback()
     
-GPIO.add_event_detect(5, GPIO.FALLING, callback=next, bouncetime=600)
-GPIO.add_event_detect(6, GPIO.FALLING, callback=back, bouncetime=600)
-GPIO.add_event_detect(13, GPIO.FALLING, callback=pause_play, bouncetime=600)
+GPIO.add_event_detect(22, GPIO.FALLING, callback=next, bouncetime=600)
+GPIO.add_event_detect(19, GPIO.FALLING, callback=back, bouncetime=600)
+GPIO.add_event_detect(26, GPIO.FALLING, callback=pause_play, bouncetime=600)
 #get current device
 devices = spotifyObject.devices()
 #print(json.dumps(devices, sort_keys=True, indent=4))
