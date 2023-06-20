@@ -193,7 +193,7 @@ while True:
     #check current_playback
     playback = spotifyObject.current_playback()
     #print(json.dumps(playback, sort_keys=True, indent=4))
-
+    """
     total_time = playback['item']['duration_ms']
     played_time = playback['progress_ms']
     total_time = int(total_time)
@@ -221,7 +221,7 @@ while True:
     print("Total track time = " + str(total_time_minutes) + ":" + t_s)
     print()
     print("Played track time = " + str(played_time_minutes) + ":" + p_s)
-    
+    """
     if  new_track['item']['id'] != current_track_id:
         link = new_track['item']['album']['images'][0]['url']
         u = urllib.request.urlopen(link)
@@ -234,7 +234,7 @@ while True:
         label.image = img 
         window.update()
         current_track_id = new_track['item']['id']
-    time.sleep(0.25)
+    time.sleep(0.1)
 
 displayName = user['display_name']
 followers = user['followers']['total']
