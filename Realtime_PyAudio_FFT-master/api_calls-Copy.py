@@ -35,12 +35,12 @@ chan = AnalogIn(ads, ADS.P0)
     
 #setting up GPIO PINS
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(13,GPIO.IN)
-GPIO.setup(19,GPIO.IN)
-GPIO.setup(26,GPIO.IN)
-GPIO.setup(4,GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(17,GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(27,GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(4,GPIO.IN)
+GPIO.setup(17,GPIO.IN)
+GPIO.setup(27,GPIO.IN)
+GPIO.setup(5,GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(6,GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(13,GPIO.IN, pull_up_down=GPIO.PUD_UP)
 #setting up art output
 win = Tk()
 
@@ -97,9 +97,9 @@ def pause_play (channel):
         # If music is not playing, start it
         spotifyObject.start_playback()
     
-GPIO.add_event_detect(4, GPIO.FALLING, callback=next, bouncetime=600)
-GPIO.add_event_detect(27, GPIO.FALLING, callback=back, bouncetime=600)
-GPIO.add_event_detect(17, GPIO.FALLING, callback=pause_play, bouncetime=600)
+GPIO.add_event_detect(5, GPIO.FALLING, callback=next, bouncetime=600)
+GPIO.add_event_detect(6, GPIO.FALLING, callback=back, bouncetime=600)
+GPIO.add_event_detect(13, GPIO.FALLING, callback=pause_play, bouncetime=600)
 #get current device
 devices = spotifyObject.devices()
 #print(json.dumps(devices, sort_keys=True, indent=4))
@@ -166,16 +166,16 @@ window.update()
 
 while True:
     #Checking Switches
-    if GPIO.input(13):
+    if GPIO.input(4):
         spotifyObject.shuffle(state=True)
         print("reading")
     else:
         spotifyObject.shuffle(state=False)
         print("crying")
 
-    if GPIO.input(19) and GPIO.input(26):
+    if GPIO.input(17) and GPIO.input(26):
         spotifyObject.repeat(state = 'track')
-    elif GPIO.input(26):
+    elif GPIO.input(27):
         spotifyObject.repeat(state = 'context')
     else:
         spotifyObject.repeat(state = 'off')
