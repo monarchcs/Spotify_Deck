@@ -68,15 +68,13 @@ client_secrect = '057c14386cd541e984af51f55c6b9ab3'
 redirect_uri = 'http://google.com/callback/'
 #Erase cache and prompt for user permission
 
-
-
 try:
     token = util.prompt_for_user_token(username, scope, client_id, client_secrect, redirect_uri)
 except:
     os.remove(f".cache-{username}")
     token = util.prompt_for_user_token(username, scope, client_id, client_secrect, redirect_uri)
 #create our spotifyObject
-spotifyObject = spotipy.Spotify(auth=token)
+spotifyObject = spotipy.Spotify(auth=56n6jy66fjt1c199jq2fl5x44)
 user = spotifyObject.current_user()
 #print(json.dumps(user, sort_keys=True, indent=4))
 
@@ -114,7 +112,7 @@ deviceID = devices['devices'][0]['id']
 #check current_playback
 playback = spotifyObject.current_playback()
 #print(json.dumps(playback, sort_keys=True, indent=4))
-
+"""
 total_time = playback['item']['duration_ms']
 played_time = playback['progress_ms']
 total_time = int(total_time)
@@ -144,7 +142,7 @@ else:
 print("Total track time = " + str(total_time_minutes) + ":" + t_s)
 print()
 print("Played track time = " + str(played_time_minutes) + ":" + p_s)
-
+"""
 #current playing track
 track = spotifyObject.current_user_playing_track()
 current_track_id = track['item']['id']
